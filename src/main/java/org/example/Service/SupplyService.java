@@ -3,6 +3,7 @@ package org.example.Service;
 import org.example.Model.Supply;
 import org.example.Repository.IRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SupplyService {
@@ -16,4 +17,6 @@ public class SupplyService {
     public List<Supply> getAll() {
         return repo.findAll();
     }
+
+
 }
