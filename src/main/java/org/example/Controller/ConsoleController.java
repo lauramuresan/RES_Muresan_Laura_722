@@ -20,16 +20,18 @@ public class ConsoleController {
     }
 
     public void start() {
-        System.out.println("astronaut  loaded: " + as.getAll().size());
-        System.out.println("mission events loaded: " + mes.getAll().size());
-        System.out.println("supplies loaded: " + ss.getAll().size());
+        System.out.println("Astronauts  loaded: " + as.getAll().size());
+        System.out.println("Events loaded: " + mes.getAll().size());
+        System.out.println("Supplies loaded: " + ss.getAll().size());
 
         while (true) {
-            System.out.println("\nSelect:4.sorted astronauts in file, 0.Exit");
+            System.out.println("\nSelect");
+            System.out.println("0. EXIT");
             System.out.println("1. alle astronauten");
             System.out.println("2. filtered astronauts");
             System.out.println("3. sorted astronauts");
             System.out.println("4.sorted astronauts in file");
+            System.out.println("5. computed points for each eventtype");
             String choice = sc.nextLine();
             switch (choice) {
                 case "1" -> as.displayAllAstronauts();
@@ -45,6 +47,8 @@ public class ConsoleController {
                 case "4" -> {
                     as.saveAstronautsSortedByExperienceAndNameToFile();
                 }
+
+                case "5" -> mes.calculateAndDisplayMissionEventPoints();
                 case "0" -> {
                     return;
 
