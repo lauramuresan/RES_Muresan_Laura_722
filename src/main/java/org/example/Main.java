@@ -16,9 +16,9 @@ import org.example.Service.SupplyService;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        IRepository<Astronaut, Integer> playerRepository = new AstronautRepository("astronaut.json");
-        IRepository<MissionEvent,Integer> matchPerformanceRepository = new MissionEventRepository("missionEvent.json");
-        IRepository<Supply, Integer> medicalRecordRepository = new SupplyRepository("supply.json");
+        IRepository<Astronaut, Integer> playerRepository = new AstronautRepository("astronauts.json");
+        IRepository<MissionEvent,Integer> matchPerformanceRepository = new MissionEventRepository("events.json");
+        IRepository<Supply, Integer> medicalRecordRepository = new SupplyRepository("supplies.json");
 
         AstronautService playerService = new AstronautService(playerRepository);
         SupplyService matchPerformanceService = new SupplyService(medicalRecordRepository);
