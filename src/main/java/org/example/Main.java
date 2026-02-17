@@ -1,17 +1,31 @@
 package org.example;
 
+import org.example.Controller.ConsoleController;
+import org.example.Model.Astronaut;
+import org.example.Model.MissionEvent;
+import org.example.Model.Supply;
+import org.example.Repository.AstronautRepository;
+import org.example.Repository.IRepository;
+import org.example.Repository.MissionEventRepository;
+import org.example.Repository.SupplyRepository;
+import org.example.Service.AstronautService;
+import org.example.Service.MissionEventService;
+import org.example.Service.SupplyService;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        IRepository<Astronaut, Integer> playerRepository = new AstronautRepository("astronaut.json");
+        IRepository<MissionEvent,Integer> matchPerformanceRepository = new MissionEventRepository("missionEvent.json");
+        IRepository<Supply, Integer> medicalRecordRepository = new SupplyRepository("supply.json");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        AstronautService playerService = new AstronautService(playerRepository);
+        SupplyService matchPerformanceService = new SupplyService(medicalRecordRepository);
+        MissionEventService medicalRecordService = new MissionEventService( matchPerformanceRepository);
+
+
+        ConsoleController controller = new ConsoleController (playerService,medicalRecordService ,matchPerformanceService);
+        controller.start();
     }
 }

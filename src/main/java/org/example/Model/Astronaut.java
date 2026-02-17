@@ -60,5 +60,8 @@ public class Astronaut implements HasId<Integer>{
         this.experienceLevel = experienceLevel;
     }
 
-
+    @Override
+    public String toString() {
+        return "[" + id + "] " + name + " | " + spacecraft + " | " + status + " | exp=" + experienceLevel;
+    }
 }
