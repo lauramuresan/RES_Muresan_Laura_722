@@ -25,10 +25,14 @@ public class ConsoleController {
         System.out.println("supplies loaded: " + ss.getAll().size());
 
         while (true) {
-            System.out.println("\nSelect: 1. alle astronauten, 0.Exit");
+            System.out.println("\nSelect: 1. alle astronauten,2. filtered astronauts, 0.Exit");
             String choice = sc.nextLine();
             switch (choice) {
                 case "1" -> as.displayAllAstronauts();
+                case "2" -> {
+                    System.out.print("Input spacecraft: ");
+                    as.displayActiveAstronautsBySpacecraft(sc.nextLine());
+                }
                 case "0" -> {
                     return;
 
