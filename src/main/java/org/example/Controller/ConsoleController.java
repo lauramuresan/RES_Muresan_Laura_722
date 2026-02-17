@@ -32,7 +32,8 @@ public class ConsoleController {
             System.out.println("3. sorted astronauts");
             System.out.println("4.sorted astronauts in file");
             System.out.println("5. computed points for each eventtype");
-            System.out.println("6. generate Mission Report");
+            System.out.println("6. Top 5 astronauts by total score");
+            System.out.println("7. generate Mission Report");
             String choice = sc.nextLine();
             switch (choice) {
                 case "1" -> as.displayAllAstronauts();
@@ -50,8 +51,10 @@ public class ConsoleController {
                 }
 
                 case "5" -> mes.calculateAndDisplayMissionEventPoints();
-
                 case "6" -> {
+                    as.Top5Astronauts(mes,ss);
+                }
+                case "7" -> {
                     mes.generateMissionReport();
                 }
                 case "0" -> {

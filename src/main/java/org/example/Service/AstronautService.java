@@ -34,10 +34,9 @@ public class AstronautService {
     }
 
 
-
     public void displayActiveAstronautsBySpacecraft(String spacecraft) {
         repo.findAll().stream()
-                .filter(astronaut -> astronaut.getSpacecraft().equalsIgnoreCase(spacecraft) && astronaut.getStatus()== AstronautStatus.ACTIVE)
+                .filter(astronaut -> astronaut.getSpacecraft().equalsIgnoreCase(spacecraft) && astronaut.getStatus() == AstronautStatus.ACTIVE)
                 .forEach(astronaut -> {
                     System.out.printf("[#%d] %s | %s | %s | exp=%d%n",
                             astronaut.getId(),
@@ -95,11 +94,33 @@ public class AstronautService {
     }
 
 
+    public void Top5Astronauts(MissionEventService missionEventService, SupplyService supplyService) {
+
+        List<Astronaut> astroanuts = repo.findAll().stream().
+                sorted((a1, a2) -> {
+                    int scoreComparison = Integer.compare(
+                            missionEventService.getTotalScoreForAstronaut(a2.getId()) + supplyService.getTotalSupplyValueForAstronaut(a2.getId()),
+                            missionEventService.getTotalScoreForAstronaut(a1.getId()) + supplyService.getTotalSupplyValueForAstronaut(a1.getId())
+                    );
+                    if (scoreComparison != 0) {
+                        return scoreComparison;
+                    }
+                    return a1.getName().compareToIgnoreCase(a2.getName());
+                })
+                .toList();
+
+        System.out.println("Top 5 Astronauts:");
+        for (int i = 0; i < Math.min(5, astroanuts.size()); i++) {
+            Astronaut astronaut = astroanuts.get(i);
+            int totalScore = missionEventService.getTotalScoreForAstronaut(astronaut.getId()) + supplyService.getTotalSupplyValueForAstronaut(astronaut.getId());
+            System.out.printf("%d. %s (%s) -> %d%n", i + 1, astronaut.getName(), astronaut.getSpacecraft(), totalScore);
+        }
+
+        if (!astroanuts.isEmpty()) {
+            System.out.println("Leading spacecraft: " + astroanuts.get(0).getSpacecraft());
 
 
-
-
-
-
-
+        }
+    }
 }
+

@@ -56,4 +56,17 @@ public class MissionEventService {
            System.err.println("Error writing mission report: " + e.getMessage());
        }
     }
+
+    public int getTotalScoreForAstronaut(Integer id) {
+        return repo.findAll().stream()
+                .filter(e -> e.getAstronautId()==id)
+                .mapToInt(e -> switch (e.getType()) {
+                    case EVA -> e.getBasePoints() + 2 * e.getDay();
+                    case SYSTEM_FAILURE -> e.getBasePoints() - 3 - e.getDay();
+                    case SCIENCE -> e.getBasePoints() + (e.getDay() % 4);
+                    case MEDICAL -> e.getBasePoints() - 2 * (e.getDay() % 3);
+                    case COMMUNICATION -> e.getBasePoints() + 5;
+                })
+                .sum();
+    }
 }

@@ -16,16 +16,16 @@ import org.example.Service.SupplyService;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        IRepository<Astronaut, Integer> playerRepository = new AstronautRepository("astronauts.json");
-        IRepository<MissionEvent,Integer> matchPerformanceRepository = new MissionEventRepository("events.json");
-        IRepository<Supply, Integer> medicalRecordRepository = new SupplyRepository("supplies.json");
+        IRepository<Astronaut, Integer> astronautRepository = new AstronautRepository("astronauts.json");
+        IRepository<MissionEvent,Integer> missionEventRepository = new MissionEventRepository("events.json");
+        IRepository<Supply, Integer> supplyRepository = new SupplyRepository("supplies.json");
 
-        AstronautService playerService = new AstronautService(playerRepository);
-        SupplyService matchPerformanceService = new SupplyService(medicalRecordRepository);
-        MissionEventService medicalRecordService = new MissionEventService( matchPerformanceRepository);
+        AstronautService astronautService = new AstronautService(astronautRepository);
+        SupplyService supplyService = new SupplyService(supplyRepository);
+        MissionEventService missionEventService = new MissionEventService( missionEventRepository);
 
 
-        ConsoleController controller = new ConsoleController (playerService,medicalRecordService ,matchPerformanceService);
+        ConsoleController controller = new ConsoleController (astronautService,missionEventService,supplyService);
         controller.start();
     }
 }

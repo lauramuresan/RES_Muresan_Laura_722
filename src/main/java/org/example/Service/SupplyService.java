@@ -19,4 +19,10 @@ public class SupplyService {
     }
 
 
+    public int getTotalSupplyValueForAstronaut(Integer id) {
+        return repo.findAll().stream()
+                .filter(supply -> supply.getAstronautId() == id)
+                .mapToInt(Supply::getValue)
+                .sum();
+    }
 }
